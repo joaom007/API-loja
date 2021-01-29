@@ -49,7 +49,7 @@ public class CustomerController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-
+    //Return default cod 200 http
     @PutMapping(value = "/{id}")
     public ResponseEntity<Customer> update(@PathVariable Long id, @RequestBody Customer obj) {
         obj = service.update(id, obj);
