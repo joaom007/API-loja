@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class HelloControler {
+public class HelloController {
 
     @GetMapping(value="/")
     public String getMethodName() {
