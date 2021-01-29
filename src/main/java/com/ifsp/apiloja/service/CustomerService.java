@@ -27,4 +27,9 @@ public class CustomerService {
     public Customer insert(Customer obj) {
       return repository.save(obj);
     }
+
+    public void delete(Long id) {
+      repository.deleteById(id);
+    }
+
 }
