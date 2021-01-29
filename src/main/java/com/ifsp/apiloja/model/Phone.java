@@ -1,51 +1,78 @@
-// package com.ifsp.apiloja.model;
+package com.ifsp.apiloja.model;
 
-// import javax.persistence.Entity;
-// import javax.persistence.GeneratedValue;
-// import javax.persistence.GenerationType;
-// import javax.persistence.Id;
+import java.util.Objects;
 
-// @Entity
-// public class Phone {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private int idPhone;
-//     private String phone;
-//     private Customer customer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity
+@Table(name = "tb_phone")
+public class Phone {
 
-//     public Phone() {
-//     }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String phone;
 
-//     public Phone(int idPhone, String phone, Customer customer) {
-//         this.idPhone = idPhone;
-//         this.phone = phone;
-//         this.customer = customer;
-//     }
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customerPh;
 
-//     public int getIdPhone() {
-//         return this.idPhone;
-//     }
+    public Phone() {
+    }
 
-//     public void setIdPhone(int idPhone) {
-//         this.idPhone = idPhone;
-//     }
+    public Phone(Long id, String phone, Customer customerPh) {
+        this.id = id;
+        this.phone = phone;
+        this.customerPh = customerPh;
+    }
 
-//     public String getPhone() {
-//         return this.phone;
-//     }
+    public Long getId() {
+        return this.id;
+    }
 
-//     public void setPhone(String phone) {
-//         this.phone = phone;
-//     }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-//     public Customer getCustomer() {
-//         return this.customer;
-//     }
+    public String getPhone() {
+        return this.phone;
+    }
 
-//     public void setCustomer(Customer customer) {
-//         this.customer = customer;
-//     }
-    
-// }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Customer getCustomerPh() {
+        return this.customerPh;
+    }
+
+    public void setCustomerPh(Customer customerPh) {
+        this.customerPh = customerPh;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Phone)) {
+            return false;
+        }
+        Phone phone = (Phone) o;
+        return Objects.equals(id, phone.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+}
