@@ -3,6 +3,8 @@ package com.ifsp.apiloja.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import com.ifsp.apiloja.model.Customer;
 import com.ifsp.apiloja.repository.CustomerRepository;
 import com.ifsp.apiloja.service.exception.DataBaseException;
@@ -33,7 +35,6 @@ public class CustomerService {
     }
 
     public void delete(Long id) {
-
       try {
         repository.deleteById(id);
 
@@ -46,9 +47,14 @@ public class CustomerService {
     }
 
     public Customer update(Long id, Customer obj) {
-      Customer model = repository.getOne(id);
-      updateData(model, obj);
-      return repository.save(model);
+      try {
+        Customer model = repository.getOne(id);
+        updateData(model, obj);
+        return repository.save(model);
+      } catch (EntityNotFoundException e) {
+        throw new ResourceNotFoundException(id);
+      }
+      
     }
 
     private void updateData(Customer model, Customer obj) {
