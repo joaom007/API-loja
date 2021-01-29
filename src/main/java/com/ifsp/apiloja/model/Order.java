@@ -43,6 +43,7 @@ public class Order implements Serializable{
     }
 
     public Order(Long id, Instant date, String paymentForm, String status, Customer customerOd) {
+        super();
         this.id = id;
         this.date = date;
         this.paymentForm = paymentForm;

@@ -1,7 +1,9 @@
 package com.ifsp.apiloja.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_book")
@@ -34,6 +39,9 @@ public class Book implements Serializable {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "id.book")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Book() {
     }
@@ -149,6 +157,15 @@ public class Book implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders() {
+        Set<Order> set = new HashSet<>();
+        for (OrderItem x: items) {
+            set.add(x.getOrder());
+        }
+        return set;
     }
 
     @Override
