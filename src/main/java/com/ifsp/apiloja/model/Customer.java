@@ -10,10 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "tb_customer")
 public class Customer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -28,14 +28,15 @@ public class Customer implements Serializable{
     private String password;
     private String token;
     private String dateBirth;
-
-    
+   
     @OneToMany(mappedBy = "customerAd")
     private List<Address> addresses = new ArrayList<>();
 
-   
     @OneToMany(mappedBy = "customerPh")
     private List<Phone> phones = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customerOd")
+    private List<Order> orders = new ArrayList<>();
 
 
     public Customer() {
@@ -123,6 +124,10 @@ public class Customer implements Serializable{
 
     public List<Phone> getPhones() {
         return this.phones;
+    }
+
+    public List<Order> getOrders() {
+        return this.orders;
     }
 
     @Override

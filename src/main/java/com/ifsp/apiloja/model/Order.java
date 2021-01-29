@@ -1,75 +1,105 @@
-// package com.ifsp.apiloja.model;
+package com.ifsp.apiloja.model;
 
-// import java.io.Serializable;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.Objects;
 
-// import javax.persistence.Entity;
-// import javax.persistence.GeneratedValue;
-// import javax.persistence.GenerationType;
-// import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-// @Entity
-// public class Order implements Serializable{
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "tb_order")
+public class Order implements Serializable{
     
-//     private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private int idOrder;
-//     private String date;
-//     private String paymentForm;
-//     private String status;
-//     private Customer customer;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    private Instant date;
+    private String paymentForm;
+    private String status;
 
-//     public Order() {
-//     }
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customerOd;
 
-//     public Order(int idOrder, String date, String paymentForm, String status, Customer customer) {
-//         this.idOrder = idOrder;
-//         this.date = date;
-//         this.paymentForm = paymentForm;
-//         this.status = status;
-//         this.customer = customer;
-//     }
+    public Order() {
+    }
 
-//     public int getIdOrder() {
-//         return this.idOrder;
-//     }
+    public Order(Long id, Instant date, String paymentForm, String status, Customer customerOd) {
+        this.id = id;
+        this.date = date;
+        this.paymentForm = paymentForm;
+        this.status = status;
+        this.customerOd = customerOd;
+    }
 
-//     public void setIdOrder(int idOrder) {
-//         this.idOrder = idOrder;
-//     }
+    public Long getId() {
+        return this.id;
+    }
 
-//     public String getDate() {
-//         return this.date;
-//     }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-//     public void setDate(String date) {
-//         this.date = date;
-//     }
+    public Instant getDate() {
+        return this.date;
+    }
 
-//     public String getPaymentForm() {
-//         return this.paymentForm;
-//     }
+    public void setDate(Instant date) {
+        this.date = date;
+    }
 
-//     public void setPaymentForm(String paymentForm) {
-//         this.paymentForm = paymentForm;
-//     }
+    public String getPaymentForm() {
+        return this.paymentForm;
+    }
 
-//     public String getStatus() {
-//         return this.status;
-//     }
+    public void setPaymentForm(String paymentForm) {
+        this.paymentForm = paymentForm;
+    }
 
-//     public void setStatus(String status) {
-//         this.status = status;
-//     }
+    public String getStatus() {
+        return this.status;
+    }
 
-//     public Customer getCustomer() {
-//         return this.customer;
-//     }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-//     public void setCustomer(Customer customer) {
-//         this.customer = customer;
-//     }
+    public Customer getCustomerOd() {
+        return this.customerOd;
+    }
 
-// }
+    public void setCustomerOd(Customer customerOd) {
+        this.customerOd = customerOd;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Order)) {
+            return false;
+        }
+        Order order = (Order) o;
+        return Objects.equals(id, order.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+ 
+}
