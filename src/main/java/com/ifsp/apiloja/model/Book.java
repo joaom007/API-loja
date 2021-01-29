@@ -7,15 +7,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "tb_book")
 public class Book implements Serializable {
     
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idbook;
+    private Long id;
     private String author;
     private String title;
     private String isbn;
@@ -26,15 +30,17 @@ public class Book implements Serializable {
     private String pages;
     private Double unitaryValue;
     private String description;
-    private Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public Book() {
     }
 
-
-    public Book(Long idbook, String author, String title, String isbn, String publisher, String city, String edition, String year, String pages, Double unitaryValue, String description, Category category) {
-        this.idbook = idbook;
+    public Book(Long id, String author, String title, String isbn, String publisher, String city, String edition, String year, String pages, Double unitaryValue, String description, Category category) {
+        super();
+        this.id = id;
         this.author = author;
         this.title = title;
         this.isbn = isbn;
@@ -47,13 +53,14 @@ public class Book implements Serializable {
         this.description = description;
         this.category = category;
     }
+    
 
-    public Long getIdbook() {
-        return this.idbook;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setIdbook(Long idbook) {
-        this.idbook = idbook;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAuthor() {
@@ -152,12 +159,12 @@ public class Book implements Serializable {
             return false;
         }
         Book book = (Book) o;
-        return Objects.equals(idbook, book.idbook);
+        return Objects.equals(id, book.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(idbook);
+        return Objects.hashCode(id);
     }
 
 }
