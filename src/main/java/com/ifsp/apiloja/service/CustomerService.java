@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.ifsp.apiloja.model.Customer;
 import com.ifsp.apiloja.repository.CustomerRepository;
+import com.ifsp.apiloja.service.exception.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class CustomerService {
     
     public Customer selectCustomerById(Long id) {
       Optional<Customer> obj = repository.findById(id);
-      return obj.get();
+      return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Customer insert(Customer obj) {
