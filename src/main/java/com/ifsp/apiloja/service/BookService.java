@@ -68,7 +68,8 @@ public class BookService {
       model.setPages(obj.getPages());
       model.setUnitaryValue(obj.getUnitaryValue());
       model.setDescription(obj.getDescription());
-      
+      model.setCategory(obj.getCategory());
+
     }
 
 }
