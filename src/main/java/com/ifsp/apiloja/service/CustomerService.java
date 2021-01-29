@@ -23,4 +23,8 @@ public class CustomerService {
       Optional<Customer> obj = repository.findById(id);
       return obj.get();
     }
+
+    public Customer insert(Customer obj) {
+      return repository.save(obj);
+    }
 }
