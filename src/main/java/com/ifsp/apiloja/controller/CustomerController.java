@@ -30,12 +30,15 @@ public class CustomerController {
         List<Customer> list = service.selectCustomer();
         return ResponseEntity.ok().body(list);
     }
+    //Select *
     //Return default cod 200 http
     @GetMapping(value = "/{id}")
     public ResponseEntity<Customer> selectCustomerById(@PathVariable Long id) {
         Customer obj = service.selectCustomerById(id);
         return ResponseEntity.ok().body(obj);
     }
+
+    //Select by id
     //Return cod 201 http
     @PostMapping
     public ResponseEntity<Customer> insert(@RequestBody Customer obj) {
@@ -43,12 +46,16 @@ public class CustomerController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
+
+    //Delete by id
     //Return cod 204 http
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    //Update by id
     //Return default cod 200 http
     @PutMapping(value = "/{id}")
     public ResponseEntity<Customer> update(@PathVariable Long id, @RequestBody Customer obj) {
