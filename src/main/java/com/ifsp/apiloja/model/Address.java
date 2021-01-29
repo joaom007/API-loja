@@ -1,104 +1,132 @@
-// package com.ifsp.apiloja.model;
+package com.ifsp.apiloja.model;
 
-// import java.io.Serializable;
+import java.io.Serializable;
+import java.util.Objects;
 
-// import javax.persistence.Entity;
-// import javax.persistence.GeneratedValue;
-// import javax.persistence.GenerationType;
-// import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-// @Entity
-// public class Address implements Serializable{
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-//     private static final long serialVersionUID = 1L;
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private int idAddress;
-//     private String street;
-//     private String number;
-//     private String district;
-//     private String city;
-//     private String state;
-//     private String zipCode;
-//     private Customer customer;
+@Entity
+@Table(name = "tb_address")
+public class Address implements Serializable{
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String street;
+    private String number;
+    private String district;
+    private String city;
+    private String state;
+    private String zipCode;
 
-//     public Address() {
-//     }
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customerAd;
 
-//     public Address(int idAddress, String street, String number, String district, String city, String state, String zipCode, Customer customer) {
-//         this.idAddress = idAddress;
-//         this.street = street;
-//         this.number = number;
-//         this.district = district;
-//         this.city = city;
-//         this.state = state;
-//         this.zipCode = zipCode;
-//         this.customer = customer;
-//     }
+    public Address() {
+    }
 
-//     public int getIdAddress() {
-//         return this.idAddress;
-//     }
+    public Address(Long id, String street, String number, String district, String city, String state, String zipCode, Customer customerAd) {
+        super();
+        this.id = id;
+        this.street = street;
+        this.number = number;
+        this.district = district;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.customerAd = customerAd;
+    }
 
-//     public void setIdAddress(int idAddress) {
-//         this.idAddress = idAddress;
-//     }
+   
+    public Long getId() {
+        return this.id;
+    }
 
-//     public String getStreet() {
-//         return this.street;
-//     }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-//     public void setStreet(String street) {
-//         this.street = street;
-//     }
+    public String getStreet() {
+        return this.street;
+    }
 
-//     public String getNumber() {
-//         return this.number;
-//     }
+    public void setStreet(String street) {
+        this.street = street;
+    }
 
-//     public void setNumber(String number) {
-//         this.number = number;
-//     }
+    public String getNumber() {
+        return this.number;
+    }
 
-//     public String getDistrict() {
-//         return this.district;
-//     }
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
-//     public void setDistrict(String district) {
-//         this.district = district;
-//     }
+    public String getDistrict() {
+        return this.district;
+    }
 
-//     public String getCity() {
-//         return this.city;
-//     }
+    public void setDistrict(String district) {
+        this.district = district;
+    }
 
-//     public void setCity(String city) {
-//         this.city = city;
-//     }
+    public String getCity() {
+        return this.city;
+    }
 
-//     public String getState() {
-//         return this.state;
-//     }
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-//     public void setState(String state) {
-//         this.state = state;
-//     }
+    public String getState() {
+        return this.state;
+    }
 
-//     public String getZipCode() {
-//         return this.zipCode;
-//     }
+    public void setState(String state) {
+        this.state = state;
+    }
 
-//     public void setZipCode(String zipCode) {
-//         this.zipCode = zipCode;
-//     }
+    public String getZipCode() {
+        return this.zipCode;
+    }
 
-//     public Customer getCustomer() {
-//         return this.customer;
-//     }
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
 
-//     public void setCustomer(Customer customer) {
-//         this.customer = customer;
-//     }    
-    
-// }
+    public Customer getCustomerAd() {
+        return this.customerAd;
+    }
+
+    public void setCustomerAd(Customer customerAd) {
+        this.customerAd = customerAd;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Address)) {
+            return false;
+        }
+        Address address = (Address) o;
+        return Objects.equals(id, address.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+}
