@@ -92,9 +92,9 @@ public class Order implements Serializable{
     }
 
     public Set<OrderItem> getItems() {
-        return items;
+        return this.items;
     }
-
+  
     public Double getTotal() {
         Double sum = 0.0;
         for(OrderItem x: items) {
