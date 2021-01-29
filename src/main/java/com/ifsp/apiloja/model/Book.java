@@ -1,6 +1,7 @@
 package com.ifsp.apiloja.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ public class Book implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idbook;
+    private Long idbook;
     private String author;
     private String title;
     private String isbn;
@@ -32,7 +33,7 @@ public class Book implements Serializable {
     }
 
 
-    public Book(int idbook, String author, String title, String isbn, String publisher, String city, String edition, String year, String pages, Double unitaryValue, String description, Category category) {
+    public Book(Long idbook, String author, String title, String isbn, String publisher, String city, String edition, String year, String pages, Double unitaryValue, String description, Category category) {
         this.idbook = idbook;
         this.author = author;
         this.title = title;
@@ -47,12 +48,11 @@ public class Book implements Serializable {
         this.category = category;
     }
 
-
-    public int getIdbook() {
+    public Long getIdbook() {
         return this.idbook;
     }
 
-    public void setIdbook(int idbook) {
+    public void setIdbook(Long idbook) {
         this.idbook = idbook;
     }
 
@@ -143,5 +143,21 @@ public class Book implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Book)) {
+            return false;
+        }
+        Book book = (Book) o;
+        return Objects.equals(idbook, book.idbook);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(idbook);
+    }
+
 }
