@@ -9,7 +9,7 @@ public class HelloController {
 
     @GetMapping(value="/")
     public String getMethodName() {
-        return "Hello Wolrd !!!";
+        return "IFSP API 1 - Loja de Livros";
     }
     
     
