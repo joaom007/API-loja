@@ -32,4 +32,19 @@ public class CustomerService {
       repository.deleteById(id);
     }
 
+    public Customer update(Long id, Customer obj) {
+      Customer model = repository.getOne(id);
+      updateData(model, obj);
+      return repository.save(model);
+    }
+
+    private void updateData(Customer model, Customer obj) {
+      model.setName(obj.getName());
+      model.setCpf(obj.getCpf());
+      model.setRg(obj.getRg());
+      model.setEmail(obj.getEmail());
+      model.setPassword(obj.getPassword());
+      model.setDateBirth(obj.getDateBirth());
+    }
+
 }
