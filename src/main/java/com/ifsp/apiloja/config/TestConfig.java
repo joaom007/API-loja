@@ -8,11 +8,13 @@ import com.ifsp.apiloja.model.Book;
 import com.ifsp.apiloja.model.Category;
 import com.ifsp.apiloja.model.Customer;
 import com.ifsp.apiloja.model.Order;
+import com.ifsp.apiloja.model.OrderItem;
 import com.ifsp.apiloja.model.Phone;
 import com.ifsp.apiloja.repository.AddressRepository;
 import com.ifsp.apiloja.repository.BookRepository;
 import com.ifsp.apiloja.repository.CategoryRepository;
 import com.ifsp.apiloja.repository.CustomerRepository;
+import com.ifsp.apiloja.repository.OrderItemRepository;
 import com.ifsp.apiloja.repository.OrderRepository;
 import com.ifsp.apiloja.repository.PhoneRepository;
 
@@ -42,6 +44,9 @@ public class TestConfig implements CommandLineRunner{
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -79,6 +84,10 @@ public class TestConfig implements CommandLineRunner{
 
         orderRepository.saveAll(Arrays.asList(od1, od2));
 
+        OrderItem oi1 = new OrderItem(od1, b1, 1, b1.getUnitaryValue());
+        OrderItem oi2 = new OrderItem(od1, b2, 1, b2.getUnitaryValue());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2));
              
     }
 }
