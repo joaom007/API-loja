@@ -5,9 +5,12 @@ import java.util.Optional;
 
 import com.ifsp.apiloja.model.Customer;
 import com.ifsp.apiloja.repository.CustomerRepository;
+import com.ifsp.apiloja.service.exception.DataBaseException;
 import com.ifsp.apiloja.service.exception.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,7 +33,16 @@ public class CustomerService {
     }
 
     public void delete(Long id) {
-      repository.deleteById(id);
+
+      try {
+        repository.deleteById(id);
+
+      } catch (EmptyResultDataAccessException e) {
+        throw new ResourceNotFoundException(id);
+        
+      } catch (DataIntegrityViolationException e){
+        throw new DataBaseException(e.getMessage());
+      }
     }
 
     public Customer update(Long id, Customer obj) {
