@@ -1,6 +1,7 @@
 package com.ifsp.apiloja.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,24 +15,25 @@ public class Category implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCategory;
+    private Long id;
     private String category;
 
     public Category() {
 
     }
 
-    public Category(int idCategory, String category) {
-        this.idCategory = idCategory;
+    public Category(Long id, String category) {
+        super();
+        this.id = id;
         this.category = category;
     }
 
-    public int getIdCategory() {
-        return this.idCategory;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setIdCategory(int idCategory) {
-        this.idCategory = idCategory;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCategory() {
@@ -42,4 +44,20 @@ public class Category implements Serializable{
         this.category = category;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Category)) {
+            return false;
+        }
+        Category category = (Category) o;
+        return Objects.equals(id, category.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+    
 }
