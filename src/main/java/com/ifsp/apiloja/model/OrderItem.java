@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OderItem  implements Serializable{
+public class OrderItem  implements Serializable{
     
     private static final long serialVersionUID = 1L;
     
@@ -19,10 +19,10 @@ public class OderItem  implements Serializable{
     private Integer quantity;
     private Double price;
 
-    public OderItem() {
+    public OrderItem() {
     }
 
-    public OderItem(Order order, Book book, Integer quantity, Double price) {
+    public OrderItem(Order order, Book book, Integer quantity, Double price) {
         super();
         id.setOrder(order);
         id.setBook(book);
@@ -66,10 +66,10 @@ public class OderItem  implements Serializable{
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof OderItem)) {
+        if (!(o instanceof OrderItem)) {
             return false;
         }
-        OderItem oderItem = (OderItem) o;
+        OrderItem oderItem = (OrderItem) o;
         return Objects.equals(id, oderItem.id);
     }
 
