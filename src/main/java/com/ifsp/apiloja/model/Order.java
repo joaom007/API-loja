@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_order")
@@ -36,7 +37,8 @@ public class Order implements Serializable{
     @JoinColumn(name = "customer_id")
     private Customer customerOd;
 
-    @OneToMany(mappedBy = "id.order")
+    @JsonIgnore
+    @OneToMany(mappedBy = "order")
     private Set<OrderItem> items = new HashSet<>();
 
     public Order() {

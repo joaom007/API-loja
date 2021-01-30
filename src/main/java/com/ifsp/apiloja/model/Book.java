@@ -40,7 +40,8 @@ public class Book implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "id.book")
+    @JsonIgnore
+    @OneToMany(mappedBy = "book")
     private Set<OrderItem> items = new HashSet<>();
 
     public Book() {
@@ -159,13 +160,8 @@ public class Book implements Serializable {
         this.category = category;
     }
 
-    @JsonIgnore
-    public Set<Order> getOrders() {
-        Set<Order> set = new HashSet<>();
-        for (OrderItem x: items) {
-            set.add(x.getOrder());
-        }
-        return set;
+    public Set<OrderItem> getItems() {
+        return this.items;
     }
 
     @Override

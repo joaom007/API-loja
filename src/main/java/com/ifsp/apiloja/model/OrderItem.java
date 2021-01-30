@@ -3,11 +3,13 @@ package com.ifsp.apiloja.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_order_item")
@@ -15,38 +17,38 @@ public class OrderItem  implements Serializable{
     
     private static final long serialVersionUID = 1L;
     
-    @EmbeddedId
-    private OrderItemPK id = new OrderItemPK();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     
     private Integer quantity;
     private Double price;
 
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
     public OrderItem() {
     }
 
-    public OrderItem(Order order, Book book, Integer quantity, Double price) {
-        super();
-        id.setOrder(order);
-        id.setBook(book);
+    public OrderItem(Long id, Integer quantity, Double price, Book book, Order order) {
+        this.id = id;
         this.quantity = quantity;
         this.price = price;
+        this.book = book;
+        this.order = order;
     }
 
-    @JsonIgnore
-    public Order getOrder() {
-        return id.getOrder();
+    public Long getId() {
+        return this.id;
     }
 
-    public void setOrder(Order order) {
-        id.setOrder(order);
-    }
-
-    public Book getBook() {
-        return id.getBook();
-    }
-
-    public void setBook(Book book) {
-        id.setBook(book);
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Integer getQuantity() {
@@ -65,6 +67,22 @@ public class OrderItem  implements Serializable{
         this.price = price;
     }
 
+    public Book getBook() {
+        return this.book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public Order getOrder() {
+        return this.order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     public Double getSubtotal() {
         return price * quantity;
     }
@@ -76,8 +94,8 @@ public class OrderItem  implements Serializable{
         if (!(o instanceof OrderItem)) {
             return false;
         }
-        OrderItem oderItem = (OrderItem) o;
-        return Objects.equals(id, oderItem.id);
+        OrderItem orderItem = (OrderItem) o;
+        return Objects.equals(id, orderItem.id);
     }
 
     @Override

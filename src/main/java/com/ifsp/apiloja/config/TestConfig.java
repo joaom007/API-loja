@@ -84,10 +84,11 @@ public class TestConfig implements CommandLineRunner{
 
         orderRepository.saveAll(Arrays.asList(od1, od2));
 
-        OrderItem oi1 = new OrderItem(od1, b1, 2, b1.getUnitaryValue());
-        OrderItem oi2 = new OrderItem(od2, b2, 5, b2.getUnitaryValue());
-        OrderItem oi3 = new OrderItem(od1, b2, 3, b2.getUnitaryValue());
-        OrderItem oi4 = new OrderItem(od2, b1, 3, b1.getUnitaryValue());
+        OrderItem oi1 = new OrderItem(null, 2, b1.getUnitaryValue(), b1, od1);
+        OrderItem oi2 = new OrderItem(null, 4, b2.getUnitaryValue(), b2, od1);
+        OrderItem oi3 = new OrderItem(null, 1, b2.getUnitaryValue(), b2, od2);
+        OrderItem oi4 = new OrderItem(null, 3, b1.getUnitaryValue(), b1, od2);
+        
 
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
              
