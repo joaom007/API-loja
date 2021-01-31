@@ -30,6 +30,10 @@ public class BookService {
       return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    public List<Book> selectBookByCategory(Long id) {
+      return repository.selectBookByCategory(id); 
+    }
+
     public Book insert(Book obj) {
       return repository.save(obj);
     }

@@ -38,6 +38,14 @@ public class BookController {
         return ResponseEntity.ok().body(obj);
     }
 
+    //Select by id customer
+    //Return cod 201 http
+    @GetMapping(value = "/categoria/{id}")
+    public ResponseEntity<List<Book>> selectBookByCategory(@PathVariable Long id) {
+        List<Book> lst = service.selectBookByCategory(id);
+        return ResponseEntity.ok().body(lst);
+    }
+
     //Select by id
     //Return cod 201 http
     @PostMapping
