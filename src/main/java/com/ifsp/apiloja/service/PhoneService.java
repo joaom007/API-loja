@@ -30,6 +30,10 @@ public class PhoneService {
       return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    public List<Phone> selectPhoneByCustomer(Long id) {
+      return repository.selectPhoneByCustomer(id); 
+    }
+
     public Phone insert(Phone obj) {
       return repository.save(obj);
     }
@@ -54,7 +58,7 @@ public class PhoneService {
       } catch (EntityNotFoundException e) {
         throw new ResourceNotFoundException(id);
       }
-      
+
     }
 
     private void updateData(Phone model, Phone obj) {
