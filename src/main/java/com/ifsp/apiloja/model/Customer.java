@@ -31,14 +31,16 @@ public class Customer implements Serializable{
     private String token;
     private String dateBirth;
    
-    @OneToMany(mappedBy = "customerAd")
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
     private List<Address> addresses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customerPh")
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
     private List<Phone> phones = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "customerOd")
+    @OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();
 
 
@@ -46,6 +48,7 @@ public class Customer implements Serializable{
     }
 
     public Customer(Long id, String name, String cpf, String rg, String email, String password, String token, String dateBirth) {
+        super();
         this.id = id;
         this.name = name;
         this.cpf = cpf;
