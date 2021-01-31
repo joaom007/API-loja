@@ -10,8 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "tb_phone")
 public class Phone {
@@ -21,18 +19,18 @@ public class Phone {
     private Long id;
     private String phone;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customerPh;
+    private Customer customer;
 
     public Phone() {
     }
 
-    public Phone(Long id, String phone, Customer customerPh) {
+    public Phone(Long id, String phone, Customer customer) {
+        super();
         this.id = id;
         this.phone = phone;
-        this.customerPh = customerPh;
+        this.customer = customer;
     }
 
     public Long getId() {
@@ -51,12 +49,12 @@ public class Phone {
         this.phone = phone;
     }
 
-    public Customer getCustomerPh() {
-        return this.customerPh;
+    public Customer getCustomer() {
+        return this.customer;
     }
 
-    public void setCustomerPh(Customer customerPh) {
-        this.customerPh = customerPh;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
