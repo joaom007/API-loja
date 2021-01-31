@@ -35,7 +35,7 @@ public class Order implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customerOd;
+    private Customer customer;
 
     @JsonIgnore
     @OneToMany(mappedBy = "order")
@@ -44,13 +44,13 @@ public class Order implements Serializable{
     public Order() {
     }
 
-    public Order(Long id, Instant date, String paymentForm, String status, Customer customerOd) {
+    public Order(Long id, Instant date, String paymentForm, String status, Customer customer) {
         super();
         this.id = id;
         this.date = date;
         this.paymentForm = paymentForm;
         this.status = status;
-        this.customerOd = customerOd;
+        this.customer = customer;
     }
 
     public Long getId() {
@@ -85,12 +85,12 @@ public class Order implements Serializable{
         this.status = status;
     }
 
-    public Customer getCustomerOd() {
-        return this.customerOd;
+    public Customer getCustomer() {
+        return this.customer;
     }
 
-    public void setCustomerOd(Customer customerOd) {
-        this.customerOd = customerOd;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Set<OrderItem> getItems() {

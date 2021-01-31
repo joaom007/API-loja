@@ -11,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "tb_address")
 public class Address implements Serializable{
@@ -28,15 +26,14 @@ public class Address implements Serializable{
     private String state;
     private String zipCode;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customerAd;
+    private Customer customer;
 
     public Address() {
     }
 
-    public Address(Long id, String street, String number, String district, String city, String state, String zipCode, Customer customerAd) {
+    public Address(Long id, String street, String number, String district, String city, String state, String zipCode, Customer customer) {
         super();
         this.id = id;
         this.street = street;
@@ -45,7 +42,7 @@ public class Address implements Serializable{
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
-        this.customerAd = customerAd;
+        this.customer = customer;
     }
 
    
@@ -105,12 +102,12 @@ public class Address implements Serializable{
         this.zipCode = zipCode;
     }
 
-    public Customer getCustomerAd() {
-        return this.customerAd;
+    public Customer getCustomer() {
+        return this.customer;
     }
 
-    public void setCustomerAd(Customer customerAd) {
-        this.customerAd = customerAd;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
