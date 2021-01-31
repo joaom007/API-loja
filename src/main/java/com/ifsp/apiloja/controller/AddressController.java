@@ -38,6 +38,14 @@ public class AddressController {
         return ResponseEntity.ok().body(obj);
     }
 
+    //Select by id customer
+    //Return cod 201 http
+    @GetMapping(value = "/cliente/{id}")
+    public ResponseEntity<List<Address>> selectAddressByCustomer(@PathVariable Long id) {
+        List<Address> lst = service.selectAddressByCustomer(id);
+        return ResponseEntity.ok().body(lst);
+    }
+
     //Select by id
     //Return cod 201 http
     @PostMapping

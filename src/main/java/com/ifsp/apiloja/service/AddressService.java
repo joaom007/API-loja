@@ -30,6 +30,10 @@ public class AddressService {
       return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    public List<Address> selectAddressByCustomer(Long id) {
+      return repository.selectAddressByCustomer(id); 
+    }
+
     public Address insert(Address obj) {
       return repository.save(obj);
     }
@@ -54,7 +58,7 @@ public class AddressService {
       } catch (EntityNotFoundException e) {
         throw new ResourceNotFoundException(id);
       }
-      
+
     }
 
     private void updateData(Address model, Address obj) {
@@ -63,7 +67,7 @@ public class AddressService {
       model.setDistrict(obj.getDistrict());
       model.setCity(obj.getCity());
       model.setState(obj.getState());
-      model.setZipCode(obj.getZipCode());      
+      model.setZipCode(obj.getZipCode());   
     }
 
 }
