@@ -30,10 +30,9 @@ public class OrderItemService {
       return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
     
-    // public OrderItem selectOrderItemById(Order id) {
-    //   Optional<OrderItem> obj = repository.findById(id.getId());
-    //   return obj.orElseThrow(() -> new ResourceNotFoundException(id.getId()));
-    // }
+    public List<OrderItem> selectOrderItemByCustomer(Long id) {
+      return repository.selectOrderItemByCustomer(id); 
+    }
 
     public OrderItem insert(OrderItem obj) {
       return repository.save(obj);
@@ -64,6 +63,5 @@ public class OrderItemService {
     private void updateData(OrderItem model, OrderItem obj) {
       model.setPrice(obj.getPrice());
       model.setQuantity(obj.getQuantity());
-      model.setOrder(obj.getOrder());
     }
 }

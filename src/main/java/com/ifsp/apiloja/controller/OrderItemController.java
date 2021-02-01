@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping(path = "/api/pedido/item")
+@RequestMapping(path = "/api/item")
 public class OrderItemController {
 
     @Autowired
@@ -38,13 +38,15 @@ public class OrderItemController {
         return ResponseEntity.ok().body(obj);
     }
 
-    // @GetMapping(value = "/{id}")
-    // public ResponseEntity<OrderItem> selectOrderItemById(@PathVariable Order id) {
-    //     OrderItem obj = service.selectOrderItemById(id);
-    //     return ResponseEntity.ok().body(obj);
-    // }
+   //Select by id order
+    //Return cod 201 http
+    @GetMapping(value = "/pedido/{id}")
+    public ResponseEntity<List<OrderItem>> selectOrderItemByCustomer(@PathVariable Long id) {
+        List<OrderItem> lst = service.selectOrderItemByCustomer(id);
+        return ResponseEntity.ok().body(lst);
+    }
 
-    //Select by id
+    //Insert by id
     //Return cod 201 http
     @PostMapping
     public ResponseEntity<OrderItem> insert(@RequestBody OrderItem obj) {

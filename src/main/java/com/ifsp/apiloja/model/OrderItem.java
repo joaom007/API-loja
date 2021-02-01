@@ -36,6 +36,7 @@ public class OrderItem  implements Serializable{
     }
 
     public OrderItem(Long id, Integer quantity, Double price, Book book, Order order) {
+        super();
         this.id = id;
         this.quantity = quantity;
         this.price = price;
