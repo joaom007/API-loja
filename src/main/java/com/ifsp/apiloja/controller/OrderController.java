@@ -38,6 +38,14 @@ public class OrderController {
         return ResponseEntity.ok().body(obj);
     }
 
+    //Select by id customer
+    //Return cod 201 http
+    @GetMapping(value = "/cliente/{id}")
+    public ResponseEntity<List<Order>> selectOrderByCustomer(@PathVariable Long id) {
+        List<Order> lst = service.selectOrderByCustomer(id);
+        return ResponseEntity.ok().body(lst);
+    }
+
     //Select by id
     //Return cod 201 http
     @PostMapping

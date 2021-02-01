@@ -30,6 +30,10 @@ public class OrderService {
       return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    public List<Order> selectOrderByCustomer(Long id) {
+      return repository.selectOrderByCustomer(id); 
+    }
+
     public Order insert(Order obj) {
       return repository.save(obj);
     }
