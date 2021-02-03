@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.ifsp.apiloja.model.InfoStatusOrder;
 import com.ifsp.apiloja.model.Order;
+import com.ifsp.apiloja.model.Purchase;
 import com.ifsp.apiloja.repository.OrderRepository;
+import com.ifsp.apiloja.repository.PagamentoClient;
 import com.ifsp.apiloja.service.exception.DataBaseException;
 import com.ifsp.apiloja.service.exception.ResourceNotFoundException;
 
@@ -20,6 +23,12 @@ public class OrderService {
 
     @Autowired
     private OrderRepository repository;
+
+    @Autowired
+    private PagamentoClient pagamentoClient;
+
+    // @Autowired
+    // private RestTemplate client;
 
     public List<Order> selectOrder() {
         return repository.findAll();
@@ -64,5 +73,18 @@ public class OrderService {
       model.setDate(obj.getDate());
       model.setPaymentForm(obj.getPaymentForm());
       model.setStatus(obj.getStatus());
+    }
+
+    //Microservice
+    public InfoStatusOrder selectInfoStatus(Long id) {
+      
+      Optional<InfoStatusOrder> info = pagamentoClient.selectInfoStatus(id);
+      return info.orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
+    public Purchase makePurchase(Order order) {
+      Purchase obj = pagamentoClient.makePurchase(order, "BookStore");
+      order.setStatus(obj.getStatus());
+      return obj;
     }
 }
